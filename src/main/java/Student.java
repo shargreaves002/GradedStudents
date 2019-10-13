@@ -4,13 +4,13 @@ import java.util.LinkedList;
 public class Student {
     private String firstName;
     private String lastName;
-    private ArrayList<Double> testScores = new ArrayList<Double>();
+    private ArrayList<Double> examScores = new ArrayList<Double>();
 
-    public Student(String firstName, String lastName, double[] testScores) {
+    public Student(String firstName, String lastName, double[] examScores) {
         this.firstName = firstName;
         this.lastName = lastName;
-        for (double score : testScores) {
-            this.testScores.add(score);
+        for (double score : examScores) {
+            this.examScores.add(score);
         }
     }
 
@@ -22,10 +22,6 @@ public class Student {
         return lastName;
     }
 
-    public ArrayList<Double> getTestScores() {
-        return testScores;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -35,32 +31,32 @@ public class Student {
     }
 
     public int getNumberOfExamsTaken() {
-        return testScores.size();
+        return examScores.size();
     }
 
     String getExamScores(){
         String answer = "Exam Scores: \n";
         int exam = 1;
-        for (Double score : testScores){
+        for (Double score : examScores){
             answer = answer.concat("\t" + "Exam " + exam + " -> " + score + "\n");
         }
         return answer.substring(0, answer.length()-3);
     }
 
     public void addExamScore(double score){
-        testScores.add(score);
+        examScores.add(score);
     }
 
     public void setExamScore(int test, double score){
-        testScores.set(test, score);
+        examScores.set(test, score);
     }
 
     double getAverageExamScore(){
         double answer = 0;
-        for (double score : testScores){
+        for (double score : examScores){
             answer += score;
         }
-        return answer / testScores.size();
+        return answer / examScores.size();
     }
     
     static int compare(Student studentOne, Student studentTwo){
@@ -72,19 +68,13 @@ public class Student {
             return 1;
         } else if (studentOne.getLastName().compareTo(studentTwo.getLastName()) > 0) {
             return -1;
-        } else if (studentOne.getFirstName().compareTo(studentTwo.getFirstName()) < 0) {
-            return 1;
-        } else if (studentOne.getFirstName().compareTo(studentTwo.getFirstName()) > 0) {
-            return -1;
-        } else {
-            return 0;
-        }
+        } else return Integer.compare(0, studentOne.getFirstName().compareTo(studentTwo.getFirstName()));
     }
 
     @Override
     public String toString(){
         return "Student name: " + firstName + " " + lastName + "\n" +
                 "> Average Score: " + getAverageExamScore() + "\n" +
-                "> " + getExamScores();
+                "> " + getExamScores() + "\n";
     }
 }
