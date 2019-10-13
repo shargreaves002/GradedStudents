@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class ClassroomTest {
     @Test
     public void testGetSortedStudents(){
@@ -21,18 +23,18 @@ public class ClassroomTest {
         expected[2] = billy;
         expected[3] = bob;
         Student[] actual = classroom.getStudentsByScore();
-        Assert.assertEquals(expected, actual);
+        Assert.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void testGradeBook(){
         Classroom classroom = new Classroom(100);
-        for (double i = 1; i <= 100; i++){
-            Student student = new Student("Mary", "Jane", new double[]{i});
+        for (int i = 1; i <= 100; i++){
+            double grade = Math.random()*1000;
+            Student student = new Student(Double.toString(i), "Jane", new double[]{grade});
             classroom.addStudent(student);
         }
-
-        System.out.println(classroom.getGradeBook().toString());
+        classroom.getGradeBook().forEach((k,v) -> System.out.println("key: "+ k +" value:"+ Arrays.toString(v)));
     }
 
 }

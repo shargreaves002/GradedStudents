@@ -2,18 +2,18 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Classroom {
+class Classroom {
     private Student[] students;
 
-    public Classroom (int maxNumberOfStudents){
+    Classroom (int maxNumberOfStudents){
         this.students = new Student[maxNumberOfStudents];
     }
 
-    public Classroom (Student[] students){
+    Classroom (Student[] students){
         this.students = students;
     }
 
-    public Classroom (){
+    Classroom (){
         this.students = new Student[30];
     }
 
@@ -111,13 +111,27 @@ public class Classroom {
 
     HashMap<Character, Student[]> getGradeBook (){
         Student[] sortedStudents = getStudentsByScore();
-        HashMap<Character, Student[]> gradeBook = new HashMap<Character, Student[]>();
-        //This doesn't work
-        gradeBook.put('A', Arrays.copyOfRange(sortedStudents, 0, sortedStudents.length / 11));
-        gradeBook.put('B', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 11, sortedStudents.length / 30));
-        gradeBook.put('C', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 30, sortedStudents.length / 51));
-        gradeBook.put('D', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 51, sortedStudents.length / 90));
-        gradeBook.put('F', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 90, sortedStudents.length + 1));
+        int indexOfA = getIndex(.90);
+        int indexOfB = getIndex(.71);
+        int indexOfC = getIndex(.50);
+        int indexOfD = getIndex(.11);
+        HashMap<Character, Student[]> gradeBook = new HashMap<>();
+        gradeBook.put('A', Arrays.copyOfRange(sortedStudents, 0, indexOfA));
+        gradeBook.put('B', Arrays.copyOfRange(sortedStudents, indexOfA, indexOfB));
+        gradeBook.put('C', Arrays.copyOfRange(sortedStudents, indexOfB, indexOfC));
+        gradeBook.put('D', Arrays.copyOfRange(sortedStudents, indexOfC, indexOfD));
+        gradeBook.put('F', Arrays.copyOfRange(sortedStudents, indexOfD, sortedStudents.length));
         return gradeBook;
+    }
+
+    private int getIndex(double percentile){
+        Student[] sortedStudents = sort(students);
+        double highestGrade = sortedStudents[0].getAverageExamScore();
+        for (int i = 0; i < sortedStudents.length; i++){
+            if (sortedStudents[i].getAverageExamScore() < highestGrade * percentile){
+                return i;
+            }
+        }
+        return sortedStudents.length;
     }
 }
