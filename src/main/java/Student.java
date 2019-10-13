@@ -62,6 +62,24 @@ public class Student {
         }
         return answer / testScores.size();
     }
+    
+    static int compare(Student studentOne, Student studentTwo){
+        if (studentOne.getAverageExamScore() > studentTwo.getAverageExamScore()) {
+            return 1;
+        } else if (studentOne.getAverageExamScore() < studentTwo.getAverageExamScore()) {
+            return -1;
+        } else if (studentOne.getLastName().compareTo(studentTwo.getLastName()) < 0) {
+            return 1;
+        } else if (studentOne.getLastName().compareTo(studentTwo.getLastName()) > 0) {
+            return -1;
+        } else if (studentOne.getFirstName().compareTo(studentTwo.getFirstName()) < 0) {
+            return 1;
+        } else if (studentOne.getFirstName().compareTo(studentTwo.getFirstName()) > 0) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 
     @Override
     public String toString(){

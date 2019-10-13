@@ -74,18 +74,10 @@ public class Classroom {
         if (arr.length <= 1) {
             return arr;
         } else if (arr.length == 2) {
-            if (arr[0].getAverageExamScore() > arr[1].getAverageExamScore()) {
+            if (Student.compare(arr[0], arr[1]) == 1) {
                 return new Student[]{arr[0], arr[1]};
-            } else if (arr[0].getAverageExamScore() < arr[1].getAverageExamScore()) {
-                return new Student[]{arr[1], arr[0]};
-            } else if (arr[0].getLastName().compareTo(arr[1].getLastName()) > 0) {
-                return new Student[]{arr[1], arr[0]};
-            } else if (arr[0].getLastName().compareTo(arr[1].getLastName()) < 0) {
-                return new Student[]{arr[0], arr[1]};
-            } else if (arr[0].getFirstName().compareTo(arr[1].getFirstName()) > 0) {
-                return new Student[]{arr[1], arr[0]};
             } else {
-                return new Student[]{arr[0], arr[1]};
+                return new Student[]{arr[1], arr[0]};
             }
         } else {
             Student[] arr1 = sort(Arrays.copyOfRange(arr, 0, (arr.length + 1)/2));
@@ -103,30 +95,14 @@ public class Classroom {
                     newArr[totalTracker] = arr1[oneTracker];
                     totalTracker++;
                     oneTracker++;
-                } else if (arr1[oneTracker].getAverageExamScore() < arr2[twoTracker].getAverageExamScore()) {
-                    newArr[totalTracker] = arr2[twoTracker];
-                    totalTracker++;
-                    twoTracker++;
-                } else if (arr1[oneTracker].getAverageExamScore() > arr2[twoTracker].getAverageExamScore()) {
+                } else if (Student.compare(arr1[oneTracker], arr2[twoTracker]) == 1) {
                     newArr[totalTracker] = arr1[oneTracker];
                     totalTracker++;
                     oneTracker++;
-                } else if (arr1[oneTracker].getLastName().compareTo(arr2[twoTracker].getLastName()) > 0) {
-                    newArr[totalTracker] = arr2[twoTracker];
-                    totalTracker++;
-                    twoTracker++;
-                } else if (arr1[oneTracker].getLastName().compareTo(arr2[twoTracker].getLastName()) < 0) {
-                    newArr[totalTracker] = arr1[oneTracker];
-                    totalTracker++;
-                    oneTracker++;
-                } else if (arr1[oneTracker].getFirstName().compareTo(arr2[twoTracker].getFirstName()) > 0) {
-                    newArr[totalTracker] = arr2[twoTracker];
-                    totalTracker++;
-                    twoTracker++;
                 } else {
-                    newArr[totalTracker] = arr1[oneTracker];
+                    newArr[totalTracker] = arr2[twoTracker];
                     totalTracker++;
-                    oneTracker++;
+                    twoTracker++;
                 }
             }
             return newArr;
@@ -137,11 +113,11 @@ public class Classroom {
         Student[] sortedStudents = getStudentsByScore();
         HashMap<Character, Student[]> gradeBook = new HashMap<Character, Student[]>();
         //This doesn't work
-        /*gradeBook.put('A', Arrays.copyOfRange(sortedStudents, 0, sortedStudents.length / 11));
+        gradeBook.put('A', Arrays.copyOfRange(sortedStudents, 0, sortedStudents.length / 11));
         gradeBook.put('B', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 11, sortedStudents.length / 30));
         gradeBook.put('C', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 30, sortedStudents.length / 51));
         gradeBook.put('D', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 51, sortedStudents.length / 90));
-        gradeBook.put('F', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 90, sortedStudents.length + 1));*/
+        gradeBook.put('F', Arrays.copyOfRange(sortedStudents, sortedStudents.length / 90, sortedStudents.length + 1));
         return gradeBook;
     }
 }
