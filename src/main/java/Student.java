@@ -68,7 +68,13 @@ public class Student {
             return 1;
         } else if (studentOne.getLastName().compareTo(studentTwo.getLastName()) > 0) {
             return -1;
-        } else return Integer.compare(0, studentOne.getFirstName().compareTo(studentTwo.getFirstName()));
+        } else if (studentOne.getFirstName().compareTo(studentTwo.getFirstName()) < 0) {
+            return 1;
+        } else if (studentOne.getFirstName().compareTo(studentTwo.getFirstName()) > 0) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
